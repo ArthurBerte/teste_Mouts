@@ -2,7 +2,8 @@
   "name": "cypress_project",
   "version": "1.0.0",
   "devDependencies": {
-    "allure-cypress": "^3.0.7"
+    "allure-cypress": "^3.0.7",
+    "cypress-xpath": "^2.0.1"
   },
   "dependencies": {
     "cypress": "^13.16.1",
