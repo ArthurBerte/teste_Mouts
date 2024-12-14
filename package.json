@@ -1,0 +1,11 @@
+{
+  "name": "cypress_project",
+  "version": "1.0.0",
+  "devDependencies": {
+    "allure-cypress": "^3.0.7"
+  },
+  "dependencies": {
+    "cypress": "^13.16.1",
+    "package.json": "^2.0.1"
+  }
+}
