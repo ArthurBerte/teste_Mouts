@@ -3,7 +3,7 @@ import "cypress-xpath";
 describe('Register product tests', () => {
 
     beforeEach(() => {
-        cy.visit('https://front.serverest.dev/login');
+        cy.visit(Cypress.env('frontBaseUrl') + '/login');
         cy.get('[data-testid="email"]').type('arthurberte@qa.com');
         cy.get('[data-testid="senha"]').type('SuperSafePassword01!');
         cy.get('[data-testid="entrar"]').click();

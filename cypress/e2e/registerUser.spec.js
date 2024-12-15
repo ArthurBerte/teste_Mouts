@@ -3,7 +3,7 @@ import "cypress-xpath";
 describe('User registry tests', () => {
 
     beforeEach(() => {
-        cy.visit('https://front.serverest.dev/login')
+        cy.visit(Cypress.env('frontBaseUrl') + '/login');
     });
 
     it('Register a new non-admin user', () => {

@@ -3,7 +3,7 @@ import "allure-cypress";
 describe('Login tests', () => {
 
   beforeEach(() => {
-    cy.visit('https://front.serverest.dev/login')
+    cy.visit(Cypress.env('frontBaseUrl') + '/login');
   });
 
   it('Using a valid login and password, get access', () => {

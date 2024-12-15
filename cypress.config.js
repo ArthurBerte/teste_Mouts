@@ -1,4 +1,4 @@
-import {allureCypress} from "allure-cypress/reporter";
+import {allureCypress} from 'allure-cypress/reporter';
 import {defineConfig} from "cypress";
 
 
@@ -10,6 +10,10 @@ export default defineConfig({
       });
       return config;
     },
-    specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}"
+    env: {
+      frontBaseUrl: 'https://front.serverest.dev',
+      backBaseURL: 'https://serverest.dev',
+    },
+    specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}",
   },
 });
