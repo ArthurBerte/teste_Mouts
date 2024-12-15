@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "devDependencies": {
     "allure-cypress": "^3.0.7",
-    "cypress-xpath": "^2.0.1"
+    "cypress-xpath": "^2.0.1",
+    "dotenv": "^16.4.7"
   },
   "dependencies": {
     "cypress": "^13.16.1",

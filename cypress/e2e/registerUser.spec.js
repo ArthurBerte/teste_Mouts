@@ -1,4 +1,8 @@
 import "cypress-xpath";
+import "allure-cypress";
+import selectors from "../fixtures/pageObjects/loginPage";
+import mainPageSelectors from "../fixtures/pageObjects/mainPage";
+import registerNewUserSelectors from "../fixtures/pageObjects/registerNewUserPage";
 
 describe('User registry tests', () => {
 
@@ -7,41 +11,41 @@ describe('User registry tests', () => {
     });
 
     it('Register a new non-admin user', () => {
-        cy.get('[data-testid="cadastrar"]').click();
-        cy.get('[data-testid="nome"]').type('Not an Admin User');
-        cy.get('[data-testid="email"]').type('notanadmin@qa.com');
-        cy.get('[data-testid="password"]').type('SuperSafePassword01!');
-        cy.get('[data-testid="cadastrar"]').click();
-        cy.get('[class="alert alert-dismissible alert-primary"]').should('have.text', '×Cadastro realizado com sucesso');
+        cy.get(selectors.locators.newUserLinkAndButton).click();
+        cy.get(registerNewUserSelectors.locators.newUserNameField).type(registerNewUserSelectors.data.nonAdminName);
+        cy.get(registerNewUserSelectors.locators.newUserEmailField).type(registerNewUserSelectors.data.nonAdminEmail);
+        cy.get(registerNewUserSelectors.locators.newUserPasswordField).type(registerNewUserSelectors.data.nonAdminPassword);
+        cy.get(selectors.locators.newUserLinkAndButton).click();
+        cy.get(registerNewUserSelectors.locators.newUserRegisterSuccessMessage).should('have.text', '×Cadastro realizado com sucesso');
     });
 
     it('Register a new admin user', () => {
-        cy.get('[data-testid="cadastrar"]').click();
-        cy.get('[data-testid="nome"]').type('An Admin User');
-        cy.get('[data-testid="email"]').type('anadmin@qa.com');
-        cy.get('[data-testid="password"]').type('SuperSafePassword01!');
-        cy.get('[data-testid="cadastrar"]').click();
-        cy.get('[class="alert alert-dismissible alert-primary"]').should('have.text', '×Cadastro realizado com sucesso');
+        cy.get(selectors.locators.newUserLinkAndButton).click();
+        cy.get(registerNewUserSelectors.locators.newUserNameField).type(registerNewUserSelectors.data.adminName);
+        cy.get(registerNewUserSelectors.locators.newUserEmailField).type(registerNewUserSelectors.data.adminEmail);
+        cy.get(registerNewUserSelectors.locators.newUserPasswordField).type(registerNewUserSelectors.data.adminPassword);
+        cy.get(selectors.locators.newUserLinkAndButton).click();
+        cy.get(registerNewUserSelectors.locators.newUserRegisterSuccessMessage).should('have.text', '×Cadastro realizado com sucesso');
     });
 
     it('Deleting a non admin user', () => {
-        cy.get('#email').type('fulano@qa.com');
-        cy.get('#password').type('teste');
-        cy.get('[class="btn btn-primary"]').click();
-        cy.get('[data-testid="listar-usuarios"]').click();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "Not an Admin")]').scrollIntoView();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "Not an Admin")]/../td/div/button[@class="btn btn-danger"]').click();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "Not and Admin")]').should('not.exist');
+        cy.get(selectors.locators.email).type(selectors.data.email);
+        cy.get(selectors.locators.password).type(selectors.data.password);
+        cy.get(selectors.locators.loginButton).click();
+        cy.get(mainPageSelectors.locators.listUsersLink).click();
+        cy.xpath(registerNewUserSelectors.locators.scrollNotAnAdminUserIntoView).scrollIntoView();
+        cy.xpath(registerNewUserSelectors.locators.notAnAdminDeleteButton).click();
+        cy.xpath(registerNewUserSelectors.locators.scrollNotAnAdminUserIntoView).should('not.exist');
     });
 
     it('Deleting an admin user', () => {
-        cy.get('#email').type('fulano@qa.com');
-        cy.get('#password').type('teste');
-        cy.get('[class="btn btn-primary"]').click();
-        cy.get('[data-testid="listar-usuarios"]').click();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "An Admin")]').scrollIntoView();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "An Admin")]/../td/div/button[@class="btn btn-danger"]').click();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "An Admin")]').should('not.exist');
+        cy.get(selectors.locators.email).type(selectors.data.email);
+        cy.get(selectors.locators.password).type(selectors.data.password);
+        cy.get(selectors.locators.loginButton).click();
+        cy.get(mainPageSelectors.locators.listUsersLink).click();
+        cy.xpath(registerNewUserSelectors.locators.scrollAnAdminUserIntoView).scrollIntoView();
+        cy.xpath(registerNewUserSelectors.locators.anAdminDeleteButton).click();
+        cy.xpath(registerNewUserSelectors.locators.scrollAnAdminUserIntoView).should('not.exist');
     });
 
 
