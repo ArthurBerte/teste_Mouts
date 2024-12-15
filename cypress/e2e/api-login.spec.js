@@ -13,6 +13,7 @@ context("POST login tests", () => {
             }).should((response) => {
                 expect(response.status).to.eql(200);
                 expect(response.body).to.contain.keys("message");
+                expect(response.body.message).to.contain("Login realizado com sucesso");
             });
         });
     });
