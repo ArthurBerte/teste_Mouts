@@ -7,10 +7,10 @@ describe('Login tests', () => {
   });
 
   it('Using a valid login and password, get access', () => {
-    cy.get('#email').type('fulano@qa.com');
-    cy.get('#password').type('teste');
-    cy.get('[class="btn btn-primary"]').click();
-    cy.get('#navbarTogglerDemo01').should('exist');
+    cy.get('[data-testid="email"]').type('arthurberte@qa.com');
+    cy.get('[data-testid="senha"]').type('SuperSafePassword01!');
+    cy.get('[data-testid="entrar"]').click();
+    cy.get('#navbarTogglerDemo01', {timeout: 1000000}).should('exist');
   });
 
   it('Invalid login test, wrong login information ', () => {

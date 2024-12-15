@@ -4,9 +4,9 @@ describe('Register product tests', () => {
 
     beforeEach(() => {
         cy.visit('https://front.serverest.dev/login');
-        cy.get('#email').type('fulano@qa.com');
-        cy.get('#password').type('teste');
-        cy.get('[class="btn btn-primary"]').click();
+        cy.get('[data-testid="email"]').type('arthurberte@qa.com');
+        cy.get('[data-testid="senha"]').type('SuperSafePassword01!');
+        cy.get('[data-testid="entrar"]').click();
     });
 
     it('Registering a product', () => {

@@ -10,3 +10,4 @@
 /.idea
 # Modules folders
 /node_modules
+/allure-results
