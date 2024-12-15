@@ -1,4 +1,6 @@
 import "allure-cypress";
+import selectors from "../fixtures/pageObjects/loginPage";
+import mainPageSelectors from "../fixtures/pageObjects/mainPage";
 
 describe('Login tests', () => {
 
@@ -7,17 +9,17 @@ describe('Login tests', () => {
   });
 
   it('Using a valid login and password, get access', () => {
-    cy.get('[data-testid="email"]').type('arthurberte@qa.com');
-    cy.get('[data-testid="senha"]').type('SuperSafePassword01!');
-    cy.get('[data-testid="entrar"]').click();
-    cy.get('#navbarTogglerDemo01', {timeout: 1000000}).should('exist');
+    cy.get(selectors.locators.email).type(selectors.data.email);
+    cy.get(selectors.locators.password).type(selectors.data.password);
+    cy.get(selectors.locators.loginButton).click();
+    cy.get(mainPageSelectors.locators.navigationBar, {timeout: 1000000}).should('exist');
   });
 
   it('Invalid login test, wrong login information ', () => {
-    cy.get('#email').type('qa@qa.com');
-    cy.get('#password').type('teste');
-    cy.get('[class="btn btn-primary"]').click();
+    cy.get(selectors.locators.email).type(selectors.data.wrongEmail);
+    cy.get(selectors.locators.password).type(selectors.data.wrongPassword);
+    cy.get(selectors.locators.loginButton).click();
     //There is a bug within the web page code. The page is listing the close button as a string x, so this assertion must be fixed once the application code is corrected.
-    cy.get('[class="alert alert-secondary alert-dismissible"]').should('have.text', '×Email e/ou senha inválidos');
+    cy.get(selectors.locators.loginFailureWarning).should('have.text', '×Email e/ou senha inválidos');
   });
 });

@@ -1,30 +1,35 @@
 import "cypress-xpath";
+import "allure-cypress";
+import selectors from "../fixtures/pageObjects/loginPage";
+import mainPageSelectors from "../fixtures/pageObjects/mainPage";
+import registerProduct from "../fixtures/pageObjects/registerProductPage";
+import listProductsPage from "../fixtures/pageObjects/listProductsPage";
 
 describe('Register product tests', () => {
 
     beforeEach(() => {
         cy.visit(Cypress.env('frontBaseUrl') + '/login');
-        cy.get('[data-testid="email"]').type('arthurberte@qa.com');
-        cy.get('[data-testid="senha"]').type('SuperSafePassword01!');
-        cy.get('[data-testid="entrar"]').click();
+        cy.get(selectors.locators.email).type(selectors.data.email);
+        cy.get(selectors.locators.password).type(selectors.data.password);
+        cy.get(selectors.locators.loginButton).click();
     });
 
     it('Registering a product', () => {
-        cy.get('[data-testid="cadastrar-produtos"]').click();
-        cy.get('[data-testid="nome"]').type('Audi S3 model 8L Nardo Blue');
-        cy.get('[data-testid="preco"]').type("120000");
-        cy.get('[data-testid="descricao"]').type("New model for the PQ34 platform, the S3 8L in the color Nardo Blue.");
-        cy.get('[data-testid="quantity"]').type("1");
-        cy.get('input[type=file]').selectFile('cypress\\fixtures\\images\\audiS38LNardoBlue.jpeg');
-        cy.get('[data-testid="cadastarProdutos"]').click();
-        cy.get('[class="table table-striped"]', {timeout: 1000000}).filter(':contains("Audi")').should('exist');
+        cy.get(mainPageSelectors.locators.registerProductLink).click();
+        cy.get(registerProduct.locators.productNameField).type(registerProduct.data.productName);
+        cy.get(registerProduct.locators.productPriceField).type(registerProduct.data.productPrice);
+        cy.get(registerProduct.locators.productDescriptionField).type(registerProduct.data.productDescription);
+        cy.get(registerProduct.locators.productQuantityField).type(registerProduct.data.productQuantity);
+        cy.get(registerProduct.locators.chooseImageField).selectFile(registerProduct.data.productImage);
+        cy.get(registerProduct.locators.registerProductButton).click();
+        cy.get(listProductsPage.locators.productFinder, {timeout: 1000000}).filter(':contains("Audi")').should('exist');
     });
 
     it('Deleting a product', () => {
-        cy.get('[data-testid="listar-produtos"]').click();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "Audi S3")]').scrollIntoView();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "Audi S3")]/../td[6]/div/button[@class="btn btn-danger"]').click();
-        cy.xpath('//div/div/p/table/tbody/tr/td[contains(text(), "Audi S3")]').should('not.exist');
+        cy.get(mainPageSelectors.locators.listProductsLink).click();
+        cy.xpath(listProductsPage.locators.scrollProductIntoView).scrollIntoView();
+        cy.xpath(listProductsPage.locators.deleteProductButton).click();
+        cy.xpath(listProductsPage.locators.scrollProductIntoView).should('not.exist');
     });
 
 });
